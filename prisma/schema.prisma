@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// title: 'Harmony Suite',
+// slug: 'harmony-suite',
+// featuredImage: [Object],
+// type: 'double',
+// price: 120,
+// size: '185',
+// about: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo sint mollitia ab minus deleniti rerum pariatur vel aliquam molestiae doloribus, ea laboriosam beatae dignissimos nostrum totam sequi nemo. Reiciendis magni animi expedita? Alias explicabo error modi delectus? Vero officia perspiciatis rerum, rem vel ab!',        
+// capacity: 2
+
+model Place {
+  id            String    @id @default(cuid())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
+  title         String    @db.VarChar(255)
+  slug          String    @unique
+  description   String
+  featuredImage String
+  // published     Boolean  @default(false)
+  type          Type
+  price         Int
+  size          Int
+  capicity      Int
+
+  // owner       Owner    @relation(fields: [ownerId], references: [id])
+  // ownerId     Int
+}
+
+enum Type {
+  SINGLE
+  DOUBLE
+  MORE
+}
+
+// model Owner {
+//   id      String      @id @default(cuid())
+//   email   String   @unique
+//   name    String?
+//   posts   Post[]
+//   profile Profile?
+// }
